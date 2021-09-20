@@ -1,58 +1,46 @@
-#include<stdio.h> 
-int lenght(char a[]){
-	int i;
-	for(i=0; i<105; i=i+1){ 
-		if(a[i] == '\0') break; 
-	}
-	return i; 
-} 
-int main(){
-	int i, j, k, h;
-	char a[105]; 
-	for(i=0; i<105; i=i+1){ 
-		scanf("%c", &a[i]);
-		if(a[i] == '\n'){
-			a[i] = '\0';
-			break; 
-		}
-	} 
-	int n = lenght(a);
-	char s[105][105]; 
-	for(i=0; i<n; i=i+1){
-		if(a[i] != ' '){ 
-			h = i; 
-			break; 
-		} 
-	} 
-	i = 0; j = 0;
-	for(k=h; k<=n; k=k+1){
-		if(a[k] != ' ' && a[k] != '\0'){
-			s[i][j] = a[k]; 
-			j = j + 1; }
-		if((a[k] == ' ' || a[k] == '\0') && a[k-1] != ' ' && a[k-1] != '\0'){
-			s[i][j] = '\0'; i = i + 1; j = 0;
-		} 
-	}
-	int H = i;
-	for(i=0; i<H-1; i=i+1){ 
-		for(j=0; j<lenght(s[i]); j=j+1){ 
-			if(j == 0){
-				if(s[i][j] >= 'a' && s[i][j] <= 'z')
-					printf("%c", s[i][j]-32); 
-				else printf("%c", s[i][j]); 
-			}
-			if(j > 0){ if(s[i][j] >= 'A' && s[i][j] <= 'Z') printf("%c", s[i][j]+32);
-			else printf("%c", s[i][j]);
-			}
-		} 
-		if(i < H-2) printf(" "); 
-		if(i == H-2) printf(", ");
-	} 
-	for(j=0; j<lenght(s[H-1]);
-		j=j+1){ 
-		if(s[H-1][j] >= 'a' && s[H-1][j] <= 'z')
-			printf("%c", s[H-1][j]-32);
-		else printf("%c", s[i][j]); 
-	}
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<sstream>
+#include<stdlib.h>
+using namespace std;
+int b;
+void chuyen(string s) {
+    cin >> b;
+    cin.ignore();
+    getline(cin, s);
+    for (int i = 0; i < s.length(); i++) s[i] = tolower(s[i]);
+    if (s[0] != 32) s[0] = toupper(s[0]);
+    for (int i = 0; i < s.length() - 1; i++) {
+        if (s[i] == ' ' && s[i + 1] != ' ') s[i + 1] = toupper(s[i + 1]);
+    }
+    stringstream ss(s);
+    string temp, s1;
+    vector<string>v1;
+    while (ss >> temp) {
+        v1.push_back(temp);
+    }
+    vector<string>::iterator it;
+    if (b == 1) {
+        cout << v1.back() << " ";
+        for (it = v1.begin(); it != v1.end() - 1; it++) {
+            cout << *it << " ";
+        }
+        cout << endl;
+    }
+    else {
+        for (it = v1.begin() + 1; it != v1.end(); it++) {
+            cout << *it << " ";
+        }
+        cout << v1.front() << endl;
+    }
 }
-
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string s;
+        chuyen(s);
+    }
+    return 0;
+}
